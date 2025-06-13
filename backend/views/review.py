@@ -1,0 +1,80 @@
+from flask import Blueprint, request, jsonify
+from datetime import datetime
+from models import db,  Review
+
+review_bp = Blueprint('review', __name__)
+@review_bp.route('/reviews', methods=['POST'])
+def create_review():
+    data = request.get_json()
+
+    user_id = data.get('user_id')
+    car_id = data.get('car_id')
+    rating = data.get('rating')
+    comment = data.get('comment')
+
+    if not user_id or not car_id or not rating:
+        return jsonify({'error': 'Missing required fields'}), 400
+
+    review = Review(
+        user_id=user_id,
+        car_id=car_id,
+        rating=rating,
+        comment=comment
+    )
+    db.session.add(review)
+    db.session.commit()
+
+    return jsonify({"message": "Review created successfully", "review_id": review.id}), 201
+
+#==========================fetch reviews by car_id=========================
+@review_bp.route('/reviews/<int:car_id>/', methods=['GET'])
+def get_reviews_by_car(car_id):
+    reviews = Review.query.filter_by(car_id=car_id).all()
+    if not reviews:
+        return jsonify({'message': 'No reviews found for this car'}), 404
+
+    reviews_data = []
+    for review in reviews:
+        reviews_data.append({
+            'id': review.id,
+            'user_id': review.user_id,
+            'car_id': review.car_id,
+            'rating': review.rating,
+            'comment': review.comment,
+            'created_at': review.created_at.isoformat()
+        })
+
+    return jsonify(reviews_data), 200
+
+#==========================fetch reviews by user_id=========================
+@review_bp.route('/reviews/user/<int:user_id>/', methods=['GET'])
+def get_reviews_by_user(user_id):
+    reviews = Review.query.filter_by(user_id=user_id).all()
+
+    if not reviews:
+        return jsonify({'message': 'No reviews found for this user'}), 404
+
+    reviews_data = []
+    for review in reviews:
+        reviews_data.append({
+            'id': review.id,
+            'username': review.user.username if review.user else 'Unknown',
+            'car_model': review.car.model if review.car else 'Unknown',
+            'rating': review.rating,
+            'comment': review.comment,
+            'date_stamp': review.created_at.isoformat()
+        })
+
+    return jsonify(reviews_data), 200
+#==========================delete review by id=========================
+@review_bp.route('/reviews/<int:review_id>/', methods=['DELETE'])
+def delete_review(review_id):
+    review = Review.query.get(review_id)
+    if not review:
+        return jsonify({'error': 'Review not found'}), 404
+
+    db.session.delete(review)
+    db.session.commit()
+
+    return jsonify({'message': 'Review deleted successfully'}), 200
+
