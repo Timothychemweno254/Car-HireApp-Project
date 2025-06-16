@@ -21,6 +21,16 @@ class User(db.Model):
     bookings = relationship('Booking', backref='user', cascade="all, delete-orphan")
     reviews = relationship('Review', backref='user', cascade="all, delete-orphan")
 
+#=============================tokens blocklist=============================
+class TokenBlocklist(db.Model):
+    __tablename__ = 'token_blocklist'
+
+    id = db.Column(db.Integer, primary_key=True)
+    jti = db.Column(db.String(36), nullable=False, unique=True)  # JWT ID
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __repr__(self):
+        return f"<TokenBlocklist {self.jti}>"
 class Car(db.Model):
     __tablename__ = 'cars'
 

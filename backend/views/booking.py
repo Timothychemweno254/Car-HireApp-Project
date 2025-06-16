@@ -1,4 +1,7 @@
 from models import db, Booking, Car, User
+from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_mail import Mail, Message
+from app import  mail
 from flask import Blueprint, request, jsonify
 from datetime import datetime
 
@@ -48,6 +51,16 @@ def create_booking():
         end_date=end_date,
         status=status
     )
+    
+    # Sending email notification
+    try:    
+        msg = Message('Booking Confirmation',
+        recipients=[user.email])
+        msg.body = f"Hello {user.username},\n\nYour booking for car ID {car} has been created successfully.\nStart Date: {start_date}\nEnd Date: {end_date}\nStatus: {status}\n\nThank you for choosing our service!\n\nBest regards,\nYour Service Team"
+        mail.send(msg)
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to send email notification", "details": str(e)}), 500
     db.session.add(booking)
     car.status = 'booked'
     db.session.commit()

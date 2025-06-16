@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify, Blueprint
-from models import db,User
-from
+from models import db, User
+from werkzeug.security import generate_password_hash
+# Importing Flask-Mail for email functionalities
+from flask_mail import Message
+from app import app, mail
+
 
 user_bp = Blueprint('user', __name__)
 
@@ -12,23 +16,43 @@ def create_user():
 
     username = data.get('username')
     email = data.get('email')
-    password_hash = data.get('password_hash')
+    password = data.get('password')  # <-- fixed
     role = data.get('admin', 'user') 
     is_admin = True if role == 'admin' else False
+
+    if not username or not email or not password:
+        return jsonify({'error': 'Missing required fields'}), 400
+
+    if User.query.filter_by(username=username).first():
+        return jsonify({'error': 'Username already exists'}), 400
+    if User.query.filter_by(email=email).first():
+        return jsonify({'error': 'Email already exists'}), 400
+
+    hashed_password = generate_password_hash(password)
 
     new_user = User(
         username=username,
         email=email,
-        password_hash=password_hash,
+        password_hash=hashed_password,
         role=role,
         is_admin=is_admin
     )
 
-    db.session.add(new_user)
-    db.session.commit()
-    return jsonify({"message": "User created successfully", "user_id": new_user.id}), 201
+    try:
+        db.session.add(new_user)
+        msg = Message(
+            'Welcome to Our Service',
+            recipients=[email]
+        )
+        msg.body = f"Hello {username},\n\nThank you for registering with us. Your account has been created successfully.\n\nBest regards,\nYour Service Team"
+        mail.send(msg)
+        db.session.commit()
+        return jsonify({"message": "User created successfully", "user_id": new_user.id}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to send email notification", "details": str(e)}), 500
 
-#=========================update users =========================
+#=========================update usersadmin =========================
 
 
 @user_bp.route('/users/<int:user_id>/', methods=['PUT'], strict_slashes=False)
@@ -47,6 +71,15 @@ def update_user(user_id):
     user.email = email
     user.role = role
     user.is_admin = is_admin
+
+    try:
+        msg = Message('Account Update Notification',
+        recipients=[email])
+        msg.body = f"Hello {username},\n\nYour account details have been updated successfully.\n\nBest regards,\nYour Service Team"
+        mail.send(msg)
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Failed to send email notification", "details": str(e)}), 500
 
     db.session.commit()
     return jsonify({'message': 'User updated successfully'}), 200
