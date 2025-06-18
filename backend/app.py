@@ -1,18 +1,24 @@
-from flask import Flask,request, jsonify
-from models import db, User, Car, Booking, Review
-from flask_migrate import Migrate
 from datetime import timedelta
-from flask_jwt_extended import JWTManager
+from flask import Flask, request, jsonify
+from models import db, TokenBlocklist
+from flask_migrate import Migrate
 from flask_mail import Mail
+from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///car_rental.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 migrate = Migrate(app, db)
-
-
 db.init_app(app)
+
+#flask cors
+CORS(app)
+
+##=====================email config========================
+
 app.config['MAIL_SERVER'] = 'smtp.gmail.com' 
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True

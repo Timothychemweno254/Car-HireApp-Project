@@ -9,10 +9,12 @@ booking_bp = Blueprint('booking', __name__)
 
 
 @booking_bp.route('/bookings', methods=['POST'])
+@jwt_required()
+#=========================create booking=========================
 def create_booking():
     data = request.get_json()
 
-    user_id = data.get('user_id')
+    user_id =  get_jwt_identity()  # Get the user ID from the JWT token
     car_id = data.get('car_id')
     status = data.get('status', 'pending')
 
@@ -31,6 +33,7 @@ def create_booking():
         return jsonify({'error': 'User not found'}), 404
     
     car = Car.query.get(car_id)
+    
     if not car:
         return jsonify({'error': 'Car not found'}), 404
     if car.status != 'available':
@@ -69,8 +72,11 @@ def create_booking():
 
 #=========================update booking=========================
 @booking_bp.route('/bookings/<int:booking_id>/', methods=['PATCH'], strict_slashes=False)
+@jwt_required()
 def update_booking(booking_id):
+
     booking = Booking.query.get(booking_id)
+    
     if not booking:
         return jsonify({'error': 'Booking not found'}), 404
 
@@ -149,6 +155,7 @@ def fetch_bookings_by_car(car_id):
     return jsonify(booking_list), 200
 #=========================delete booking by id=========================     
 @booking_bp.route('/bookings/<int:booking_id>/', methods=['DELETE'])
+@jwt_required()
 def delete_booking(booking_id):
     booking = Booking.query.get(booking_id)
     if not booking:

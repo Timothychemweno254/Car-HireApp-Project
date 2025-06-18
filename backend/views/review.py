@@ -1,13 +1,16 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
 from models import db,  Review
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 review_bp = Blueprint('review', __name__)
+#==========================create review=========================
 @review_bp.route('/reviews', methods=['POST'])
+@jwt_required()
 def create_review():
     data = request.get_json()
 
-    user_id = data.get('user_id')
+    user_id =  get_jwt_identity() 
     car_id = data.get('car_id')
     rating = data.get('rating')
     comment = data.get('comment')
@@ -68,6 +71,7 @@ def get_reviews_by_user(user_id):
     return jsonify(reviews_data), 200
 #==========================delete review by id=========================
 @review_bp.route('/reviews/<int:review_id>/', methods=['DELETE'])
+@jwt_required()
 def delete_review(review_id):
     review = Review.query.get(review_id)
     if not review:

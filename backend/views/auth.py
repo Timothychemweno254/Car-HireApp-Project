@@ -1,9 +1,9 @@
-from flask import Blueprint, request, jsonify
-from models import db, User,TokenBlocklist
-from werkzeug.security import  check_password_hash
+from flask import Flask, request, jsonify, Blueprint
+from models import db, User, TokenBlocklist
+from werkzeug.security import check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, get_jwt
 from datetime import datetime
-from datetime import  timezone
+from datetime import timezone
 
 auth_bp = Blueprint('auth_bp', __name__)
 
@@ -26,25 +26,24 @@ def login_user():
         return jsonify({'error': 'Invalid email or password'}), 401
 
   #============================fetch logged in user============================
-@auth_bp.route('/user', methods=['GET'])
+@auth_bp.route('/current_user', methods=['GET'])
 @jwt_required()
-def get_logged_in_user():
+def fetch_current_user():
     current_user_id = get_jwt_identity()
     user = User.query.get(current_user_id)
-    
+
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
     user_data = {
         'id': user.id,
-        'name': user.name,
+        'username': user.username,
         'email': user.email,
-        'created_at': user.created_at
-
+        'role': user.role,
+        'is_admin': user.is_admin
     }
     
     return jsonify(user_data), 200
-
 #=============================logout user============================
 @auth_bp.route('/logout', methods=['DELETE'])
 @jwt_required()

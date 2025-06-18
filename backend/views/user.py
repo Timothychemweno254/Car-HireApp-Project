@@ -16,7 +16,7 @@ def create_user():
 
     username = data.get('username')
     email = data.get('email')
-    password = data.get('password')  # <-- fixed
+    password = data.get('password')  
     role = data.get('admin', 'user') 
     is_admin = True if role == 'admin' else False
 

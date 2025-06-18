@@ -1,9 +1,12 @@
 from flask import Blueprint, request, jsonify
-from models import db, Car
+from models import db, Car, User
+from flask_jwt_extended import jwt_required, get_jwt_identity
 
 car_bp = Blueprint('car_bp', __name__)
 
 @car_bp.route('/cars', methods=['POST'])
+@jwt_required()
+#=======================create car=========================
 def create_car():
     data = request.get_json()
 
@@ -13,6 +16,7 @@ def create_car():
     image2 = data.get('image2')
     price_per_day = data.get('price_per_day')
     status = data.get('status', 'available')
+    user_id = get_jwt_identity()  
 
     if not brand or not model or not image1 or not image2 or not price_per_day:
         return jsonify({'error': 'Missing required fields'}), 400
@@ -35,6 +39,7 @@ def create_car():
 
 #=======================update car=========================
 @car_bp.route('/cars/<int:car_id>/', methods=['PATCH'], strict_slashes=False)
+@jwt_required()
 def update_car(car_id):
     car = Car.query.get(car_id)
     if not car:
@@ -100,6 +105,7 @@ def fetch_all_cars():
     return jsonify(car_list), 200
 #=======================delete car by id=========================
 @car_bp.route('/cars/<int:car_id>/', methods=['DELETE'], strict_slashes=False)
+@jwt_required()
 def delete_car(car_id):
     car = Car.query.get(car_id)
     if not car:
