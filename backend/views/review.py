@@ -1,16 +1,18 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
-from models import db,  Review
+from models import User
+from models import db, Review
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 review_bp = Blueprint('review', __name__)
-#==========================create review=========================
+
+# ========================== Create Review ==========================
 @review_bp.route('/reviews', methods=['POST'])
 @jwt_required()
 def create_review():
     data = request.get_json()
 
-    user_id =  get_jwt_identity() 
+    user_id = get_jwt_identity()
     car_id = data.get('car_id')
     rating = data.get('rating')
     comment = data.get('comment')
@@ -29,27 +31,25 @@ def create_review():
 
     return jsonify({"message": "Review created successfully", "review_id": review.id}), 201
 
-#==========================fetch reviews by car_id=========================
-@review_bp.route('/reviews/<int:car_id>/', methods=['GET'])
-def get_reviews_by_car(car_id):
-    reviews = Review.query.filter_by(car_id=car_id).all()
-    if not reviews:
-        return jsonify({'message': 'No reviews found for this car'}), 404
-
-    reviews_data = []
+# ========================== Fetch Reviews by Car ID ==========================
+# Get all reviews
+@review_bp.route('/reviews', methods=['GET'])
+def get_all_reviews():
+    reviews = Review.query.all()
+    result = []
     for review in reviews:
-        reviews_data.append({
+        result.append({
             'id': review.id,
             'user_id': review.user_id,
             'car_id': review.car_id,
             'rating': review.rating,
             'comment': review.comment,
-            'created_at': review.created_at.isoformat()
+            'timestamp': review.timestamp.isoformat() if review.timestamp else ''
         })
+    return jsonify(result), 200
 
-    return jsonify(reviews_data), 200
 
-#==========================fetch reviews by user_id=========================
+# ========================== Fetch Reviews by User ID ==========================
 @review_bp.route('/reviews/user/<int:user_id>/', methods=['GET'])
 def get_reviews_by_user(user_id):
     reviews = Review.query.filter_by(user_id=user_id).all()
@@ -65,14 +65,28 @@ def get_reviews_by_user(user_id):
             'car_model': review.car.model if review.car else 'Unknown',
             'rating': review.rating,
             'comment': review.comment,
-            'date_stamp': review.created_at.isoformat()
+            'date_stamp': review.timestamp.isoformat() 
         })
 
     return jsonify(reviews_data), 200
-#==========================delete review by id=========================
+
+# ========================== Delete Review by ID ==========================
+
+
 @review_bp.route('/reviews/<int:review_id>/', methods=['DELETE'])
 @jwt_required()
 def delete_review(review_id):
+    current_user_id = get_jwt_identity()
+    
+    # ✅ Fix here
+    user = User.query.get(current_user_id)
+
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+
+    if not user.is_admin:
+        return jsonify({'error': 'Only admins can delete reviews'}), 403
+
     review = Review.query.get(review_id)
     if not review:
         return jsonify({'error': 'Review not found'}), 404
@@ -81,4 +95,3 @@ def delete_review(review_id):
     db.session.commit()
 
     return jsonify({'message': 'Review deleted successfully'}), 200
-

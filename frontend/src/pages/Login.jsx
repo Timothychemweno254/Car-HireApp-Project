@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../context/UserContext';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +11,13 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    login_user(email, password);
+
+    if (!email || !password) {
+      toast.error("Please enter both email and password");
+      return;
+    }
+
+    login_user(email, password); // ✅ sends password as password_hash internally
   };
 
   return (
@@ -59,16 +66,6 @@ const Login = () => {
               </p>
             </div>
           </div>
-        </div>
-
-        <div className="flex-1 bg-sky-100 text-center hidden lg:flex">
-          <div
-            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-            style={{
-              backgroundImage:
-                "url('https://storage.googleapis.com/devitary-image-host.appspot.com/15848031292911696601-undraw_designer_life_w96d.svg')",
-            }}
-          />
         </div>
       </div>
     </div>

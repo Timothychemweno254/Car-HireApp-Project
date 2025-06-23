@@ -7,16 +7,16 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout_user(); // removes token, clears user, etc.
-    navigate('/login'); // redirect to login page
+    logout_user();
+    navigate('/login');
   };
 
   return (
     <nav className="bg-blue-600 text-white p-4 flex justify-between items-center shadow-md">
       <h1 className="font-bold text-2xl">Car Rentals</h1>
 
-      <div className="flex gap-4">
-        {/* Common links for all users */}
+      <div className="flex gap-4 items-center">
+        {/* Common links */}
         <Link
           to="/"
           className="px-3 py-1 border border-white rounded hover:bg-white hover:text-blue-600 transition"
@@ -36,7 +36,6 @@ const Navbar = () => {
           Contact
         </Link>
 
-        {/* Links visible when NOT logged in */}
         {!currentUser && (
           <Link
             to="/signup"
@@ -46,7 +45,7 @@ const Navbar = () => {
           </Link>
         )}
 
-        {/* Links visible when logged in */}
+        {/* User Links */}
         {currentUser && (
           <>
             <Link
@@ -61,12 +60,27 @@ const Navbar = () => {
             >
               Profile
             </Link>
-            <Link
-              to="/admin"
-              className="px-3 py-1 border border-white rounded hover:bg-white hover:text-blue-600 transition"
-            >
-              Admin
-            </Link>
+
+            {/* Admin-only Links */}
+            {currentUser?.is_admin && (
+              <>
+                <Link
+                  to="/admin"
+                  className="px-3 py-1 border border-white rounded hover:bg-white hover:text-blue-600 transition"
+                >
+                  Admin
+                </Link>
+                <Link 
+                   to="/admin/add-car"
+                   className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                >
+                    Add New Car
+                </Link>
+                
+               
+              </>
+            )}
+
             <button
               onClick={handleLogout}
               className="px-3 py-1 border border-white rounded hover:bg-white hover:text-blue-600 transition"
