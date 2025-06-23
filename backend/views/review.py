@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
-from models import User
-from models import db, Review
+from models import db, Review,User
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 review_bp = Blueprint('review', __name__)
@@ -50,25 +49,23 @@ def get_all_reviews():
 
 
 # ========================== Fetch Reviews by User ID ==========================
-@review_bp.route('/reviews/user/<int:user_id>/', methods=['GET'])
-def get_reviews_by_user(user_id):
-    reviews = Review.query.filter_by(user_id=user_id).all()
+@review_bp.route('/reviews/car/<int:car_id>/', methods=['GET'])
+def get_reviews_by_car(car_id):
+    reviews = Review.query.filter_by(car_id=car_id).all()
 
-    if not reviews:
-        return jsonify({'message': 'No reviews found for this user'}), 404
-
-    reviews_data = []
+    result = []
     for review in reviews:
-        reviews_data.append({
+        result.append({
             'id': review.id,
             'username': review.user.username if review.user else 'Unknown',
             'car_model': review.car.model if review.car else 'Unknown',
             'rating': review.rating,
             'comment': review.comment,
-            'date_stamp': review.timestamp.isoformat() 
+            'timestamp': review.timestamp.isoformat() if review.timestamp else ''
         })
+    return jsonify(result), 200
 
-    return jsonify(reviews_data), 200
+   
 
 # ========================== Delete Review by ID ==========================
 

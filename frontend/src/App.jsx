@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import CarDetails from './pages/CarDetails'; 
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
@@ -33,6 +34,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
             <Route path="/cars" element={<Cars />} />
             <Route path="/admin/add-car" element={<AddCar />} />
+            <Route path="/cars/:id" element={<CarDetails />} />
             <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
 

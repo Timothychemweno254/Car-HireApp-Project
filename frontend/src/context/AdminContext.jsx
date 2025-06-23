@@ -44,21 +44,21 @@ export const AdminProvider = ({ children }) => {
     }
   }, [auth_token]);
 
-  const deleteUser = async (userId) => {
-    if (!window.confirm("Are you sure you want to delete this user?")) return;
-    try {
-      const res = await fetch(`${api_url}/users/${userId}`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${auth_token}` },
-      });
-      const data = await res.json();
-      toast.success(data.message || "User deleted");
-      setUsers(prev => prev.filter(u => u.id !== userId));
-    } catch (err) {
-      toast.error("Failed to delete user");
-      console.error(err);
-    }
-  };
+ const deleteUser = async (userId) => {
+  try {
+    const res = await fetch(`${api_url}/users/${userId}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${auth_token}` },
+    });
+    const data = await res.json();
+    toast.success(data.message || "User deleted");
+    setUsers(prev => prev.filter(u => u.id !== userId));
+  } catch (err) {
+    toast.error("Failed to delete user");
+    console.error(err);
+  }
+};
+
 
   const updateBookingStatus = async (id) => {
     const newStatus = statusUpdates[id];
@@ -138,38 +138,36 @@ export const AdminProvider = ({ children }) => {
       console.error("Booking update error:", error);
     }
   };
+const deleteBooking = async (id) => {
+  try {
+    const res = await fetch(`${api_url}/bookings/${id}/`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${auth_token}` },
+    });
+    const data = await res.json();
+    toast.success(data.message || "Booking deleted");
+    setBookings(prev => prev.filter(b => b.id !== id));
+  } catch (err) {
+    toast.error("Failed to delete booking");
+    console.error(err);
+  }
+};
 
-  const deleteBooking = async (id) => {
-    if (!window.confirm("Delete this booking?")) return;
-    try {
-      const res = await fetch(`${api_url}/bookings/${id}/`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${auth_token}` },
-      });
-      const data = await res.json();
-      toast.success(data.message || "Booking deleted");
-      setBookings(prev => prev.filter(b => b.id !== id));
-    } catch (err) {
-      toast.error("Failed to delete booking");
-      console.error(err);
-    }
-  };
+const deleteReview = async (id) => {
+  try {
+    const res = await fetch(`${api_url}/reviews/${id}/`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${auth_token}` },
+    });
+    const data = await res.json();
+    toast.success(data.message || "Review deleted");
+    setReviews(prev => prev.filter(r => r.id !== id));
+  } catch (err) {
+    toast.error("Failed to delete review");
+    console.error(err);
+  }
+};
 
-  const deleteReview = async (id) => {
-    if (!window.confirm("Delete this review?")) return;
-    try {
-      const res = await fetch(`${api_url}/reviews/${id}/`, {
-        method: 'DELETE',
-        headers: { Authorization: `Bearer ${auth_token}` },
-      });
-      const data = await res.json();
-      toast.success(data.message || "Review deleted");
-      setReviews(prev => prev.filter(r => r.id !== id));
-    } catch (err) {
-      toast.error("Failed to delete review");
-      console.error(err);
-    }
-  };
 
   return (
     <AdminContext.Provider
