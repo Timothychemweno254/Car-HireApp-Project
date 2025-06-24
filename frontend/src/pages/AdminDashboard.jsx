@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     if (!currentUser?.is_admin) {
       
-      navigate("/AdminDashboard");
+      navigate("/Admin");
     } else {
       fetchAllAdminData();
     }
