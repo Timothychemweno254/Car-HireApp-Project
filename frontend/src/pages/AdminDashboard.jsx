@@ -64,7 +64,7 @@ const AdminDashboard = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Failed to update booking");
 
-      // Update car status
+      
       let newCarStatus = updatedStatus === 'confirmed' ? 'booked' : 
                         updatedStatus === 'cancelled' ? 'available' : null;
 
@@ -98,7 +98,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // table styling 
+  
   const tdClass = "px-6 py-4 whitespace-nowrap text-sm";
   const thClass = "px-6 py-3 text-left text-xs font-medium uppercase tracking-wider";
   const actionButtonClass = "px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";
@@ -425,7 +425,7 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
+        
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
@@ -442,7 +442,7 @@ const AdminDashboard = () => {
           </button>
         </div>
 
-        {/* Tab Navigation */}
+        
         <div className="mb-8">
           <nav className="flex space-x-2 overflow-x-auto pb-2">
             {['users', 'cars', 'bookings', 'reviews'].map(tab => (
@@ -461,7 +461,7 @@ const AdminDashboard = () => {
           </nav>
         </div>
 
-        {/* Main Content */}
+        
         <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
           <div className="px-6 py-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-blue-100">
             <h2 className="text-xl font-semibold text-gray-800">
