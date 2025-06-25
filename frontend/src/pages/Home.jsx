@@ -4,7 +4,7 @@ import { motion, useAnimation, useInView } from 'framer-motion';
 import { fadeIn, staggerContainer, zoomIn } from '../utils/motion';
 
 const Home = () => {
-  // Car Images Data
+  
   const carImages = [
     {
       id: 1,
@@ -43,32 +43,32 @@ const Home = () => {
     }
   ];
 
-  // Testimonials Data
+  
   const testimonials = [
     {
       id: 1,
-      name: 'Sarah Johnson',
+      name: 'Anonimous',
       comment: 'Best car rental experience ever! The process was seamless and the car was in perfect condition.',
       rating: 5,
       image: 'https://randomuser.me/api/portraits/women/44.jpg'
     },
     {
       id: 2,
-      name: 'Michael Chen',
+      name: 'Michael ',
       comment: 'Great prices and excellent customer service. Will definitely use again for my next trip.',
       rating: 4,
       image: 'https://randomuser.me/api/portraits/men/32.jpg'
     },
     {
       id: 3,
-      name: 'Emily Rodriguez',
+      name: 'Emily ',
       comment: 'The premium selection exceeded my expectations. Highly recommend this service!',
       rating: 5,
       image: 'https://randomuser.me/api/portraits/women/68.jpg'
     }
   ];
 
-  // Infinite Carousel Logic
+  
   const duplicatedCarImages = [...carImages, ...carImages, ...carImages];
   const [currentSlide, setCurrentSlide] = useState(0);
   const carouselRef = useRef(null);
@@ -103,7 +103,7 @@ const Home = () => {
     };
   }, []);
 
-  // Animation for sections
+  
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
@@ -116,7 +116,7 @@ const Home = () => {
 
   return (
     <div className="bg-gray-50">
-      {/* Hero Section with Animation */}
+     
       <motion.section 
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -163,7 +163,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Continuous Image Carousel */}
+      
       <motion.section 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -207,7 +207,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Features Section */}
+     
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -266,7 +266,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Testimonials Section */}
+      
       <motion.section 
         initial="hidden"
         whileInView="visible"
@@ -314,7 +314,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Stats Section */}
+      
       <motion.section 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
@@ -368,7 +368,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      {/* Call to Action */}
+      
       <motion.section 
         id="contact"
         initial={{ opacity: 0, y: 50 }}

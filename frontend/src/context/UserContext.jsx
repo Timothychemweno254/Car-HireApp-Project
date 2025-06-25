@@ -133,7 +133,7 @@ function delete_profile() {
 }
 
 
-    // ✅ ======= Function to update user profile ========
+    //  ======= Function to update user profile ========
   function update_user_profile(user_id, email, password) {
   if (!auth_token) {
     toast.error("Not logged in.");
@@ -164,7 +164,7 @@ function delete_profile() {
         setTimeout(() => {
           toast.success(data.message);
           setCurrentUser((prev) => ({ ...prev, email })); // optional: update email locally
-        }, 1500); // delay to simulate email sending feedback
+        }, 1500);
       } else {
         toast.error("Profile update completed, but no confirmation message received.");
       }

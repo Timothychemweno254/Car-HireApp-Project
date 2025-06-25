@@ -27,7 +27,7 @@ const Profile = () => {
     if (currentUser) {
       setEmail(currentUser.email);
       fetchCars();
-      // Load profile image from local storage if exists
+
       const savedImage = localStorage.getItem(`profileImage_${currentUser.id}`);
       if (savedImage) {
         setProfileImage(savedImage);
@@ -70,7 +70,7 @@ const Profile = () => {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      if (file.size > 2 * 1024 * 1024) { // 2MB limit
+      if (file.size > 2 * 1024 * 1024) { 
         toast.error("Image size should be less than 2MB");
         return;
       }
@@ -79,7 +79,7 @@ const Profile = () => {
       reader.onload = (event) => {
         const imageDataUrl = event.target.result;
         setProfileImage(imageDataUrl);
-        // Save to local storage with user-specific key
+        
         localStorage.setItem(`profileImage_${currentUser.id}`, imageDataUrl);
         toast.success("Profile image updated!");
       };
@@ -106,7 +106,7 @@ const Profile = () => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Error cancelling");
 
-      // Update car to available
+      
       await fetch(`${api_url}/cars/${carId}/status`, {
         method: 'PATCH',
         headers: {
@@ -176,7 +176,7 @@ const Profile = () => {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
+          
           <div className="w-full lg:w-1/4">
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
               <div className="p-6 flex flex-col items-center">
@@ -208,7 +208,7 @@ const Profile = () => {
                     onChange={handleImageUpload}
                     accept="image/*"
                     className="hidden"
-                    capture="user" // This enables camera on mobile devices
+                    capture="user" 
                   />
                 </div>
                 <h2 className="text-xl font-bold text-gray-800">{currentUser.username}</h2>
@@ -255,7 +255,7 @@ const Profile = () => {
             </div>
           </div>
 
-            {/* Main Content */}
+            
           <div className="w-full lg:w-3/4">
             <div className="bg-white rounded-xl shadow-md overflow-hidden">
               {activeTab === 'profile' && (

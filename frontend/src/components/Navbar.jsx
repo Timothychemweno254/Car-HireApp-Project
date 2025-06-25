@@ -17,17 +17,17 @@ const Navbar = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // Helper function to determine if a link is active
+  
   const isActive = (path) => location.pathname === path;
 
-  // Common styles for all links
+  
   const linkStyles = (path) => `
     px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300
     ${isActive(path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'}
     flex items-center justify-center
   `;
 
-  // Mobile menu link styles
+  
   const mobileLinkStyles = (path) => `
     block px-3 py-2 rounded-md text-base font-medium
     ${isActive(path) ? 'bg-blue-700 text-white' : 'text-blue-100 hover:bg-blue-700 hover:text-white'}
@@ -37,7 +37,7 @@ const Navbar = () => {
     <nav className="bg-gradient-to-r from-blue-800 to-blue-600 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo and mobile menu button */}
+          {/* Logo  */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <Link to="/" className="flex items-center">
@@ -49,7 +49,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Navigation Links */}
+          {/* Desktop Navigation  */}
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-2">
               <Link to="/" className={linkStyles('/')}>
@@ -85,7 +85,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Desktop Auth Section */}
+          {/* Desktop  */}
           <div className="hidden md:block ml-4 flex items-center md:ml-6 space-x-2">
             {currentUser ? (
               <button
@@ -106,7 +106,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile  */}
           <div className="md:hidden flex items-center">
             <button
               onClick={toggleMobileMenu}

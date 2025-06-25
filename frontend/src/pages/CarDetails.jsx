@@ -122,7 +122,7 @@ const handleSubmitReview = async (e) => {
       </button>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Left Column - Compact Car Card */}
+        {/* Compact Car Card */}
         <div className="bg-white rounded-lg shadow-sm p-4 border border-green-100">
           <div className="flex space-x-2 mb-3">
             <div 
@@ -186,11 +186,11 @@ const handleSubmitReview = async (e) => {
           </div>
         </div>
 
-        {/* Right Column - Compact Comments Card */}
+        {/* Compact Comments Card */}
         <div className="bg-white rounded-lg shadow-sm p-4 border border-blue-100">
           <h2 className="text-lg font-bold text-black mb-3 border-b pb-1">Reviews</h2>
           
-          {/* Compact Review Form */}
+          {/* Review Form */}
           <form onSubmit={handleSubmitReview} className="mb-4 bg-blue-50 p-2 rounded">
             <div className="flex items-center mb-1">
               {[1, 2, 3, 4, 5].map((star) => (

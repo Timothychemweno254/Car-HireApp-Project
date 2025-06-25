@@ -98,7 +98,7 @@ const AdminDashboard = () => {
     }
   };
 
-  // Common table styling components
+  // table styling 
   const tdClass = "px-6 py-4 whitespace-nowrap text-sm";
   const thClass = "px-6 py-3 text-left text-xs font-medium uppercase tracking-wider";
   const actionButtonClass = "px-3 py-1.5 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2";

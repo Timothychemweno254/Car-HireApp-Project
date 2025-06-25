@@ -19,7 +19,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Contact Form */}
+          
           <div className="bg-white p-6 rounded-lg shadow-xl">
             <h3 className="text-2xl font-bold text-blue-600 mb-4">Send us a message</h3>
             <form className="space-y-4">
@@ -59,11 +59,11 @@ const Contact = () => {
             </form>
           </div>
 
-          {/* Contact Information */}
+          
           <div className="bg-white p-6 rounded-lg shadow-xl">
             <h3 className="text-2xl font-bold text-blue-600 mb-4">Other ways to reach us</h3>
             
-            {/* WhatsApp Button */}
+            
             <a
               href={whatsappUrl}
               target="_blank"
@@ -74,7 +74,7 @@ const Contact = () => {
               Message us  on WhatsApp
             </a>
 
-            {/* Contact Cards */}
+            
             <div className="space-y-4">
               <div className="flex items-start p-4 bg-blue-50 rounded-lg">
                 <FaPhone className="text-blue-600 text-xl mt-1 mr-4" />
@@ -93,7 +93,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Social Media */}
+            
             <div className="mt-8">
               <h4 className="font-medium text-gray-900 mb-3">Follow us on social media</h4>
               <div className="flex space-x-4">
