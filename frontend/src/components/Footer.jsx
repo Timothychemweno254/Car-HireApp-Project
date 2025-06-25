@@ -38,9 +38,9 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
             <address className="not-italic">
-              <p className="mb-2">123 Car Rental Street</p>
-              <p className="mb-2">Auto City, AC 12345</p>
-              <p className="mb-2">Phone: (123) 456-7890</p>
+              <p className="mb-2">123 Street</p>
+              <p className="mb-2">Auto City 12345</p>
+              <p className="mb-2">Phone: 123 456-7890</p>
               <p className="mb-2">Email: info@carrentals.com</p>
             </address>
           </div>

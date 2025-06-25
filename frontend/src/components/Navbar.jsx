@@ -42,8 +42,8 @@ const Navbar = () => {
             <div className="flex-shrink-0">
               <Link to="/" className="flex items-center">
                 <span className="text-white text-2xl font-bold tracking-tight">
-                  <span className={`px-3 py-1 rounded-l-lg ${isActive('/') ? 'bg-blue-700' : 'bg-blue-700'}`}>CAR</span>
-                  <span className={`px-3 py-1 rounded-r-lg ${isActive('/') ? 'bg-blue-500' : 'bg-blue-500'}`}>RENTALS</span>
+                  <span className={`px-3 py-1 rounded-l-lg ${isActive('/') ? 'bg-blue-700' : 'bg-blue-700'}`}>Easy</span>
+                  <span className={`px-3 py-1 rounded-r-lg ${isActive('/') ? 'bg-blue-500' : 'bg-blue-500'}`}>Hire</span>
                 </span>
               </Link>
             </div>
