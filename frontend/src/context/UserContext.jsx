@@ -14,29 +14,34 @@ export const UserProvider = ({ children }) => {
     console.log("Current User useState variable: ", currentUser);
 
     // ========= Function to register a user ==========
-    function register_user(username, email, password) {
-        toast.loading("Registering user...");
+function register_user(username, email, password) {
+    toast.loading("Registering user...");
 
-        fetch(`${api_url}/users`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ username, email, password })
-        })
-        .then(response => response.json())
-        .then(res => {
-            toast.dismiss();
-            if (res.error) {
-                toast.error(res.error);
-            } else if (res.success) {
-                toast.success(res.success);
-                navigate("/login");
-            } else {
-                toast.error("An error occurred while registering the user.");
-            }
-        });
-    }
+    fetch(`${api_url}/users`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, password })
+    })
+    .then(response => response.json())
+    .then(res => {
+        toast.dismiss();
+        if (res.error) {
+            toast.error(res.error);
+        } else if (res.message && res.user_id) {
+            toast.success(res.message);
+            navigate("/login");
+        } else {
+            toast.error("An unexpected error occurred while registering.");
+        }
+    })
+    .catch(() => {
+        toast.dismiss();
+        toast.error("Network error. Please try again.");
+    });
+}
+
 
     // ======== Function to login a user ========
     function login_user(email, password) {
@@ -116,7 +121,7 @@ function delete_profile() {
       if (res.error) {
         toast.error(res.error);
       } else if (res.message) {
-        toast.success(res.message); // ✅ match Flask return key
+        toast.success(res.message); 
         localStorage.removeItem("access_token");
         setAuthToken(null);
         setCurrentUser(null);
