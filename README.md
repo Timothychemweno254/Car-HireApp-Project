@@ -1,14 +1,18 @@
-zEASY HIRE CAR RENTAL APP
+#  EASY HIRE CAR RENTAL APP
+
 Project Name: EasyHire Car Rental System
 Date: 25/06/2025
 Author: Timothy Kiprop
 
-Project Description
+## Project Description
+
 EasyCarHire is a full-stack car rental platform that allows users to browse available vehicles, book them using a calendar-based interface, and leave reviews after use.
 Administrators can manage users, cars, bookings, and reviews through a dedicated admin dashboard.
 
-Features / User Stories
-A User Can:
+### Features / User Stories
+
+ #### A User Can:
+ 
 Register an account with a username, email, and password
 
 Login using valid credentials
@@ -31,7 +35,8 @@ View their profile with booking history
 
 Leave reviews (rating and comment) for cars
 
-An Admin Can:
+##### An Admin Can:
+
 Login to the admin dashboard
 
 View a list of all users
@@ -46,7 +51,8 @@ Approve, cancel, or reject any booking
 
 View and delete inappropriate reviews
 
-Setup / Installation Requirements
+###### Setup / Installation Requirements
+
 Download the project
 
 Click the green "Code" button and download the ZIP file
@@ -76,19 +82,21 @@ Start the React app with:
 ```npm run dev```
 
 
-Slides Presentation
+## Slides Presentation
 
 Google Slides Presentation
 
-Deployment
+### Deployment
+
 Frontend Live Site: https://easyhireapp.netlify.app/
 
 Backend Render Link: https://car-hireapp-project.onrender.com
 
-Known Bugs
+### Known Bugs
+
 The application currently works as expected. No known bugs at the moment.
 
-Technologies Used
+## Technologies Used
 -React
 
 -Tailwind CSS
@@ -103,16 +111,16 @@ Technologies Used
 
 -Flask JWT Extended
 
-Support and Contact Details
+### Support and Contact Details
+
 For support, please reach out via email:
 tchemweno18@gmail.com
 
-License
+### License
+
 Licensed under the MIT License
 
-vbnet
-Copy
-Edit
+
 MIT License
 
 ```Copyright (c) 2025 Timothy Kiprop
