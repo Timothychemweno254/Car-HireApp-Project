@@ -9,21 +9,21 @@ Administrators can manage users, cars, bookings, and reviews through a dedicated
 
 Features / User Stories
 A User Can:
-Register an account with a username, email, and password
+       -Register an account with a username, email, and password
 
-Login using valid credentials
+      -Login using valid credentials
 
-Update their profile information
+      -Update their profile information
 
-View a list of available cars
+      - View a list of available cars
 
-Search cars by brand or availability
+     - Search cars by brand or availability
 
-View car details (model, photos, status)
+     - View car details (model, photos, status)
 
-Use a calendar to pick start and end dates
+     - Use a calendar to pick start and end dates
 
-Book a car for selected dates
+     - Book a car for selected dates
 
 View, edit, or cancel their own bookings
 
