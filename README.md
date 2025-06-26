@@ -13,72 +13,72 @@ Administrators can manage users, cars, bookings, and reviews through a dedicated
 
  #### A User Can:
  
-Register an account with a username, email, and password
+  - Register an account with a username, email, and password
 
-Login using valid credentials
+ - Login using valid credentials
 
-Update their profile information
+ - Update their profile information
 
- View a list of available cars
+ - View a list of available cars
 
-Search cars by brand or availability
+ - Search cars by brand or availability
 
-View car details (model, photos, status)
+ - View car details (model, photos, status)
 
- Use a calendar to pick start and end dates
+ -  Use a calendar to pick start and end dates
 
- Book a car for selected dates
+- Book a car for selected dates
+ 
+- View, edit, or cancel their own bookings
 
-View, edit, or cancel their own bookings
+- View their profile with booking history
 
-View their profile with booking history
-
-Leave reviews (rating and comment) for cars
+- Leave reviews (rating and comment) for cars
 
 ##### An Admin Can:
 
-Login to the admin dashboard
+ - Login to the admin dashboard
 
-View a list of all users
+ - View a list of all users
 
-Add, update, or delete cars
+ - Add, update, or delete cars
 
-Change car status: available, booked, or maintenance
+ - Change car status: available, booked, or maintenance
 
-View all bookings
+ - View all bookings
 
-Approve, cancel, or reject any booking
+ - Approve, cancel, or reject any booking
 
-View and delete inappropriate reviews
+ - View and delete inappropriate reviews
 
-###### Setup / Installation Requirements
+# Setup / Installation Requirements
 
 Download the project
 
-Click the green "Code" button and download the ZIP file
+ - Click the green "Code" button and download the ZIP file
 
-Extract the files to your desired folder
+ - Extract the files to your desired folder
 
-Backend Setup
+ - Backend Setup
 
-Open the project folder in VS Code
+ - Open the project folder in VS Code
 
-Navigate to the backend folder in your terminal
+ - Navigate to the backend folder in your terminal
 
-Run pipenv install to install required packages
+ - Run pipenv install to install required packages
 
-Start the backend server with:
+ - Start the backend server with:
 
 
 ```flask run --debug```
 
-Frontend Setup
+ - Frontend Setup
 
-Open a new terminal and navigate to the frontend directory
+    Open a new terminal and navigate to the frontend directory
 
 ```Run npm install``` to install required packages
 
-Start the React app with:
+ - Start the React app with:
 ```npm run dev```
 
 
